@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { ExampleComponent } from 'react-catalite'
+import  {Button}  from 'react-catalite'
 import 'react-catalite/dist/index.css'
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return <Button/>
 }
 
 export default App
