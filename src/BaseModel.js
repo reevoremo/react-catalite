@@ -5,38 +5,38 @@ class BaseModel {
       label: label,
       group: group,
       type: type.label(label),
-      value: defaultValue,
-    };
+      value: defaultValue
+    }
   }
 
   setValue(field, value) {
-    if (value !== null) field.value = value;
-    return field.value;
+    if (value !== null) field.value = value
+    return field.value
   }
 
   getObject(data) {
-    const data_object = {};
-    for (let key in this) {
-      data_object[key] = this.setValue(this[key], data[key]);
+    const dataObject = {}
+    for (const key in this) {
+      dataObject[key] = this.setValue(this[key], data[key])
     }
-    return data_object;
+    return dataObject
   }
 
   getSchema() {
-    const schema = {};
-    for (let key in this) {
-      schema[key] = this[key].type;
+    const schema = {}
+    for (const key in this) {
+      schema[key] = this[key].type
     }
-    return schema;
+    return schema
   }
 
   getDefaultData() {
-    const data_object = {};
-    for (let key in this) {
-      data_object[key] = this[key].defaultValue;
+    const dataObject = {}
+    for (const key in this) {
+      dataObject[key] = this[key].defaultValue
     }
-    return data_object;
+    return dataObject
   }
 }
 
-export default BaseModel;
+export default BaseModel
