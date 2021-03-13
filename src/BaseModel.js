@@ -1,41 +1,38 @@
+import BaseModelField from './BaseModelField'
 class BaseModel {
-  createField(defaultValue, group, label, type) {
-    return {
-      defaultValue: defaultValue,
-      label: label,
-      group: group,
-      type: type.label(label),
-      value: defaultValue
-    }
+  createField(field,  name, label, type, defaultValue) {
+    const fieldName = this._generateFieldName(name)
+    field[fieldName]  = new BaseModelField(label, defaultValue, type, defaultValue)
+    Object.defineProperty(field, name, {
+      get (){
+        return field[fieldName].value;
+      },
+      set (data){
+        field[fieldName].value  = data;
+      }
+    })
   }
 
-  setValue(field, value) {
-    if (value !== null) field.value = value
-    return field.value
+  _generateFieldName(name) {
+    return `_${name}`
   }
 
-  getObject(data) {
-    const dataObject = {}
+  _restoreFieldName(name){
+    return name.substring(1);
+  }
+
+  getFieldsType(){
+    const fieldsType = {}
     for (const key in this) {
-      dataObject[key] = this.setValue(this[key], data[key])
+      fieldsType[key] = this[key].type
     }
-    return dataObject
+    return fieldsType
   }
 
-  getSchema() {
-    const schema = {}
+  mapToObject(data){
     for (const key in this) {
-      schema[key] = this[key].type
+      this[key].value =  data[this._restoreFieldName(key)]
     }
-    return schema
-  }
-
-  getDefaultData() {
-    const dataObject = {}
-    for (const key in this) {
-      dataObject[key] = this[key].defaultValue
-    }
-    return dataObject
   }
 }
 
