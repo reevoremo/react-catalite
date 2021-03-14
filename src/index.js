@@ -1,2 +1,2 @@
-export { default as Button } from './Button'
-export { default as BaseModel } from './BaseModel'
+export { default as Button } from './Button';
+export { default as BaseModel } from './BaseModel';
