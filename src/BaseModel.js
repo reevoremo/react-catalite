@@ -1,39 +1,44 @@
-import BaseModelField from './BaseModelField'
+import BaseModelField from './BaseModelField';
 class BaseModel {
-  createField(field,  name, label, type, defaultValue) {
-    const fieldName = this._generateFieldName(name)
-    field[fieldName]  = new BaseModelField(label, defaultValue, type, defaultValue)
+  createField(field, name, label, type, defaultValue) {
+    const fieldName = this._generateFieldName(name);
+    field[fieldName] = new BaseModelField(
+      label,
+      defaultValue,
+      type,
+      defaultValue
+    );
     Object.defineProperty(field, name, {
-      get (){
+      get() {
         return field[fieldName].value;
       },
-      set (data){
-        field[fieldName].value  = data;
+      set(data) {
+        field[fieldName].value = data;
       }
-    })
+    });
   }
 
   _generateFieldName(name) {
-    return `_${name}`
+    return `_${name}`;
   }
 
-  _restoreFieldName(name){
+  _restoreFieldName(name) {
     return name.substring(1);
   }
 
-  getFieldsType(){
-    const fieldsType = {}
+  getFieldsType() {
+    const fieldsType = {};
     for (const key in this) {
-      fieldsType[key] = this[key].type
+      fieldsType[key] = this[key].type;
     }
-    return fieldsType
+    return fieldsType;
   }
 
-  mapToObject(data){
+  mapToObject(data) {
     for (const key in this) {
-      this[key].value =  data[this._restoreFieldName(key)]
+      this[key].value = data[this._restoreFieldName(key)];
     }
   }
 }
 
-export default BaseModel
+export default BaseModel;
